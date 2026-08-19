@@ -1,0 +1,52 @@
+@startuml
+
+title Object Diagram – Single Scenario (Example)
+
+object "s1: Student" as s1 {
+  studentId = "2025CS012"
+  name = "Aditya Ranjan"
+  email = "aditya@iiitv.ac.in"
+  phone = "9876543210"
+}
+
+object "a1: Application" as a1 {
+  appId = "APP1001"
+  date = 2025-07-15
+  status = "Approved"
+}
+
+object "p1: Preference" as p1 {
+  prefId = "PREF501"
+  roomType = "Double"
+  roommateId = "2025CS034"
+}
+
+object "pay1: Payment" as pay1 {
+  paymentId = "PAY7001"
+  amount = 35000.00
+  date = 2025-07-18
+  status = "Paid"
+}
+
+object "r1: Room" as r1 {
+  roomNo = "B-203"
+  roomType = "Double"
+  capacity = 2
+  status = "Occupied"
+}
+
+object "al1: Allocation" as al1 {
+  allocId = "ALLOC9001"
+  allocDate = 2025-07-20
+  status = "Confirmed"
+}
+
+s1 "1" -- "1" a1
+a1 "1" -- "1" p1
+s1 "1" -- "1" pay1
+pay1 "1" -- "1" r1
+a1 "1" -- "1" r1
+r1 "1" -- "1" al1
+a1 "1" -- "1" al1
+
+@enduml
