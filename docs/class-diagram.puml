@@ -1,0 +1,68 @@
+@startuml
+
+class Student {
+  + studentId: String
+  + name: String
+  + email: String
+  + phone: String
+  --
+  + apply()
+  + viewStatus()
+  + payFee()
+}
+
+class Application {
+  + appId: String
+  + date: Date
+  + status: String
+  --
+  + submit()
+  + updateStatus()
+}
+
+class Preference {
+  + prefId: String
+  + roomType: String
+  + roommateId: String
+  --
+  + save()
+}
+
+class Payment {
+  + paymentId: String
+  + amount: double
+  + date: Date
+  + status: String
+  --
+  + makePayment()
+  + updateStatus()
+}
+
+class Room {
+  + roomNo: String
+  + roomType: String
+  + capacity: int
+  + status: String
+  --
+  + isAvailable(): boolean
+  + allocate()
+}
+
+class Allocation {
+  + allocId: String
+  + allocDate: Date
+  + status: String
+  --
+  + allocateRoom()
+  + updateStatus()
+}
+
+Student "1" -- "1" Application
+Application "1" -- "1" Preference
+Student "1" -- "0..*" Payment
+Payment "0..*" -- "1" Room
+Application "1" -- "1" Room
+Room "1" -- "0..*" Allocation
+Application "1" -- "0..*" Allocation
+
+@enduml
