@@ -1,0 +1,74 @@
+@startuml
+left to right direction
+
+skinparam backgroundColor #111111
+skinparam shadowing false
+skinparam actorStyle awesome
+skinparam usecase {
+    BackgroundColor #111111
+    BorderColor #DDDDDD
+    FontColor #FFFFFF
+}
+skinparam rectangle {
+    BorderColor #AAAAAA
+    BackgroundColor transparent
+}
+skinparam actor {
+    FontColor #FFFFFF
+    BorderColor #DDDDDD
+}
+
+rectangle "HOSTEL ALLOCATION SYSTEM" {
+
+    usecase "REGISTER/LOGIN" as Register
+
+    usecase "PAYMENT OF\nHOSTEL FEES" as Payment
+
+    usecase "SEARCH\nVACANCIES" as Search
+
+    usecase "PREFERRED\nROOM" as Preferred
+
+    usecase "CHECK STATUS" as CheckStatus
+
+    usecase "CHECK ALLOCATION\nSTATUS" as AllocationStatus
+
+    usecase "CHECK AVAILABILITY" as Availability
+
+    usecase "FINAL ALLOCATION" as FinalAllocation
+
+    usecase "MANAGE INVENTORY" as Inventory
+}
+
+actor Student
+actor "HOSTEL WARDEN" as Warden
+actor "ROOM FINDER" as RoomFinder
+actor "ROOM MATCHER" as RoomMatcher
+
+' Student relationships
+Student --> Register
+Student --> Payment
+
+' Hostel Warden relationships
+Warden --> Register
+Warden --> Search
+Warden --> AllocationStatus
+
+' Room Finder relationship
+RoomFinder --> Availability
+
+' Room Matcher relationship
+RoomMatcher --> FinalAllocation
+
+' Internal use-case relationships
+Search ..> Register : <<include>>
+
+Payment --> Preferred
+Preferred --> CheckStatus
+
+AllocationStatus --> Availability
+
+Payment ..> Inventory : <<include>>
+
+FinalAllocation ..> Inventory : <<extend>>
+
+@enduml
